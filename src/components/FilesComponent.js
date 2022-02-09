@@ -1,27 +1,16 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  firstPageFilesAction,
-  nextPageFilesAction,
-  previousPageFilesAction,
-  lastPageFilesAction,
+  firstPageFilesAction
 } from "../redux/filesDucks.js";
 
 export const Files = (props) => {
   const dispatch = useDispatch();
-  const firstLimit = parseInt(props.limit);
-  const [limit, setLimit] = React.useState(firstLimit);
   const files = useSelector((store) => store.files);
-  const searchAgain = (e) => {
-    if (e.key === "Enter") {
-      dispatch(firstPageFilesAction(limit));
-    }
-  };
-
-  const changeLimit = (e) => setLimit(parseInt(e.target.value));
+  
   React.useEffect(
-    () => dispatch(firstPageFilesAction(firstLimit)),
-    [dispatch, firstLimit]
+    () => dispatch(firstPageFilesAction()),
+    [dispatch]
   );
 
   return (
@@ -40,7 +29,7 @@ export const Files = (props) => {
               </thead>
               <tbody>
                 {files.results.map((file) => {
-                  return file.lines.map((line, indexLines) => {
+                  return file.lines.map((line) => {
                     return (
                       <tr>
                         <td>{file.fileName}</td>

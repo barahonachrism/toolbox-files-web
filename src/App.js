@@ -8,7 +8,7 @@ export const App = () => {
     return (
         <div>
             <Provider store= {store}>
-                <Files limit={20}/>
+                <Files/>
             </Provider>
         </div>
     )
