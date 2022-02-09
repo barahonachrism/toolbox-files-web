@@ -46,7 +46,7 @@ export const Files = (props) => {
               value={fileName}
               class="form-control me-2"
               type="search"
-              placeholder="Search"
+              placeholder="Enter file name"
               aria-label="Search"
               onChange={(e) => changeFileName(e)}
               onKeyDown={(e) => searchFilesEnter(e)}
