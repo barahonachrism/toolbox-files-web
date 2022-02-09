@@ -17,4 +17,4 @@ Ejecutar las pruebas unitarias.
 
 ### `npm run build`
 
-Construir la aplicacion compactada para ambiente de produccion en la carpeta `build`.\
+Construir la aplicacion compactada para ambiente de produccion en la carpeta `build`.
