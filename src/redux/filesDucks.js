@@ -12,11 +12,16 @@ const initialData = {
 
 const LIST_FILES_SUCCESS = 'LIST_FILES_SUCCESS';
 
+const endpoint = 'http://localhost:3000/files/data';
+
 //reducer
 export default function fileReducer(state = initialData, action){
     switch(action.type){
         case LIST_FILES_SUCCESS:
-            return {...state, ...action.payload};
+            let data = {...state, ...action.payload};
+            console.log('++++++++++++');
+            console.log(data);
+            return data;
         default:
             return state;
     }
@@ -27,10 +32,12 @@ export default function fileReducer(state = initialData, action){
 export const firstPageFilesAction = (limit) => async (dispatch, getState) => {
     try { 
         const offset = 0;
-        const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`);
+        const res = await axios.get(`${endpoint}?offset=${offset}&limit=${limit}`);
+        console.log('========================');
+        console.log(res.data);
         dispatch({
             type: LIST_FILES_SUCCESS,
-            payload: {...res.data, offset: offset, limit: limit}
+            payload: {results: res.data, offset: offset, limit: limit}
         });
     } catch(error){
         console.log(error);
@@ -44,7 +51,7 @@ export const nextPageFilesAction = () => async (dispatch, getState) => {
         const next = offset + limit;
 
         if(next < count){
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${next}&limit=${limit}`);
+            const res = await axios.get(`${endpoint}?offset=${next}&limit=${limit}`);
             dispatch({
                 type: LIST_FILES_SUCCESS,
                 payload: {...res.data, offset: next}
@@ -63,7 +70,7 @@ export const previousPageFilesAction = () => async (dispatch, getState) => {
         const previous = offset - limit;
 
         if(previous >= 0){
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${previous}&limit=${limit}`);
+            const res = await axios.get(`${endpoint}?offset=${previous}&limit=${limit}`);
             dispatch({
                 type: LIST_FILES_SUCCESS,
                 payload: {...res.data, offset: previous}
@@ -82,7 +89,7 @@ export const lastPageFilesAction = () => async (dispatch, getState) => {
         const last = (Math.ceil(count / limit) - 1) * limit;
 
         if(last >= 0){
-            const res = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=${last}&limit=${limit}`);
+            const res = await axios.get(`${endpoint}?offset=${last}&limit=${limit}`);
             dispatch({
                 type: LIST_FILES_SUCCESS,
                 payload: {...res.data, offset: last}

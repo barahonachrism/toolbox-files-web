@@ -1,6 +1,6 @@
 import { createStore, combineReducers, compose, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import fileReducer from './fileDucks';
+import fileReducer from './filesDucks.js';
 
 const rootReducer = combineReducers({
     files: fileReducer
