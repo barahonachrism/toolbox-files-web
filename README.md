@@ -21,3 +21,12 @@ Ejecutar las pruebas unitarias.
 ### `npm run build`
 
 Construir la aplicacion compactada para ambiente de produccion en la carpeta `build`.
+
+### `docker build --no-cache -t toolbox/toolbox-files-web:latest .`  
+
+Generar la imagen Docker de todos todos los microfrontends, desactivar la cache es importante para hacer una compilación completa.
+   
+        
+### `docker run --name toolbox-files-web -p 4031:80 -d toolbox/toolbox-files-web`  
+
+Desplegar la aplicacion frontend.
