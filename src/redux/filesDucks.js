@@ -22,10 +22,13 @@ export default function fileReducer(state = initialData, action){
 
 //actions
 //Desplazarse a la primera pagina de los archivos
-export const firstPageFilesAction = () => async (dispatch, getState) => {
+export const firstPageFilesAction = (fileName) => async (dispatch, getState) => {
     try { 
-        const offset = 0;
-        const res = await axios.get(`${endpoint}`);
+        let options = {};
+        if(fileName){
+            options.params = {"fileName":fileName };
+        }
+        const res = await axios.get(`${endpoint}`,options);
         dispatch({
             type: LIST_FILES_SUCCESS,
             payload: {results: res.data}
